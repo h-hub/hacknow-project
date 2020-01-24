@@ -60,6 +60,7 @@ TEMPLATES = [
         'DIRS': [
             BASE_DIR + '/templates/',
             BASE_DIR + '/users/',
+            BASE_DIR + '/home/',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -83,7 +84,6 @@ WSGI_APPLICATION = 'devRssReader.wsgi.application'
 # DATABASE_URL=$(heroku config:get DATABASE_URL -a devrssfeed) postgresql-animated-74623
 
 DATABASES = { 'default': dj_database_url.config(conn_max_age=500, ssl_require=True) }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

@@ -1,12 +1,7 @@
-{# Load the tag library #}
-{% load bootstrap4 %}
+  
+{% extends 'base.html' %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
-
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
+{% block content %}
 
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
@@ -40,3 +35,5 @@
 
 {# Assumes you setup the password_reset view in your URLconf #}
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+
+{% endblock %}
