@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR + '/templates/',
+            BASE_DIR + '/users/',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -78,7 +80,10 @@ WSGI_APPLICATION = 'devRssReader.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = { 'default': dj_database_url.config(conn_max_age=500) }
+# DATABASE_URL=$(heroku config:get DATABASE_URL -a devrssfeed) postgresql-animated-74623
+
+DATABASES = { 'default': dj_database_url.config(conn_max_age=500, ssl_require=True) }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -121,5 +126,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'staticfiles'))
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+
+LOGIN_REDIRECT_URL = '/home'
+LOGOUT_REDIRECT_URL = '/home'
 
 django_heroku.settings(locals())
