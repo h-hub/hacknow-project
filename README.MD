@@ -1,7 +1,7 @@
 #Python Django
 
 Deployed to Heorku
-Install Dependencies: pip install -r requirements.txt
+Install Dependencies: pip3 install -r requirements.txt
 Development server: python manage.py runserver
 
 Migrations:
