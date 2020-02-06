@@ -2,6 +2,14 @@
 
 {% block content %}
 
-<p>Welcome to DevRssFeed</p>
+<p>Welcome to DevRssFeed.</p>
+
+<p>{{author_name}}</p>
+<ul>
+{% for entry in feeds.entries %}
+    <li><a href="{{entry.link}}">{{entry.title}}</a></li>
+
+{% endfor %}
+</ul>
 
 {% endblock %}
