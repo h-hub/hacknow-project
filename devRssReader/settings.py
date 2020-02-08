@@ -86,6 +86,8 @@ WSGI_APPLICATION = 'devRssReader.wsgi.application'
 
 DATABASES = { 'default': dj_database_url.config(conn_max_age=500, ssl_require=True) }
 
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 

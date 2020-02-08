@@ -2,14 +2,19 @@
 
 {% block content %}
 
-<p>Welcome to DevRssFeed.</p>
+<div class="row">
 
-<p>{{author_name}}</p>
-<ul>
-{% for entry in feeds.entries %}
-    <li><a href="{{entry.link}}">{{entry.title}}</a></li>
+    {% for entry in authors %}
+    <div class="col-md-4">
+        <p>{{entry.authername}}</p>
 
-{% endfor %}
-</ul>
+        {% for postlink in entry.autherblogfeed.entries %}
+            <li><a href="{{postlink.link}}">{{postlink.title}}</a></li>
+
+            {% endfor %}
+    
+    </div>    
+    {% endfor %}
+</div>
 
 {% endblock %}

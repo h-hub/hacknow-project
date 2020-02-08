@@ -9,13 +9,22 @@ def index(request):
 
     authors = Author.objects.all()
 
-    link = Link.objects.filter(author__pk=1)[0].link
+    authorlist = []
 
-    feeds = feedparser.parse(link)
+    for author in authors:
+        link = author.link_set.filter(name='blog')
+        fed = feedparser.parse(link[0].link)
+
+        linkobjects = {
+            'authername': author.first_name+ " "+ author.last_name,
+            'autherblogfeed': fed
+        }
+
+        authorlist.append(linkobjects);
+
 
     context = {
-        'feeds': feeds,
-        'author_name': authors[0].first_name+" "+authors[0].last_name
+        'authors': authorlist,
     }
     return render(request, 'home_templates/home.html', context)
 
