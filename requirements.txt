@@ -11,6 +11,7 @@ Django==3.0.2
 django-bootstrap4==1.1.1
 django-crispy-forms==1.7.2
 django-heroku==0.3.1
+django-static-fontawesome==5.10.2
 django-summernote==0.8.11.4
 django-tinymce==2.6.0
 django-tinymce4-lite==1.7.5

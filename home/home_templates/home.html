@@ -6,15 +6,52 @@
 
     {% for entry in authors %}
     <div class="col-md-4">
-        <h2>{{entry.authername}}</h2>
+        <div class="card">
+            <div class="card-body">
+                <h2>{{entry.authername}}</h2>
 
-        {% for postlink in entry.autherblogfeed.entries %}
-            <li><a href="{{postlink.link}}">{{postlink.title}}</a></li>
+                {% for postlink in entry.autherblogfeed.entries %}
+                <li><a href="#" data-link="{{postlink.link}}" data-title="{{postlink.title}}" data-toggle="modal"
+                        data-target=".bd-example-modal-lg">{{postlink.title}}</a></li>
 
-            {% endfor %}
-    
-    </div>    
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     {% endfor %}
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <h3 class="modal-title" id="ModalLongTitle">Modal title</h3>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-outline-primary btn-sm" id="bookmark-btn"><i class="fas fa-bookmark"></i> Bookmark</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id="newtab-btn"><i class="far fa-window-maximize"></i> New Tab</button>
+                            <button type="button" class="btn btn-outline-success btn-sm" id="favorite-btn"><i class="far fa-star"></i> Favorite</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <iframe id="blog-post-link" src="" width="100%" height="650px" frameborder="0" allowtransparency="true"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

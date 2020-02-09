@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'social_django',
     'bootstrap4',
     'home',
+    "django_static_fontawesome",
 ]
 
 MIDDLEWARE = [
