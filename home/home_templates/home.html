@@ -6,7 +6,7 @@
 
     {% for entry in authors %}
     <div class="col-md-4">
-        <p>{{entry.authername}}</p>
+        <h2>{{entry.authername}}</h2>
 
         {% for postlink in entry.autherblogfeed.entries %}
             <li><a href="{{postlink.link}}">{{postlink.title}}</a></li>
