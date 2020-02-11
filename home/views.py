@@ -1,7 +1,10 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.http import JsonResponse
+
 from home.models import Author
 from home.models import Link
-from django.http import HttpResponse
+
 import feedparser
 
 
@@ -31,3 +34,16 @@ def index(request):
 
 def about(request):
     return render(request, 'home_templates/about.html')
+
+
+def bookmark_links(request):
+    link = request.GET.get('link', None)
+
+    
+
+    # data = {
+    #     'is_taken': User.objects.filter(username__iexact=username).exists()
+    # }
+    if data['is_taken']:
+        data['error_message'] = 'A user with this username already exists.'
+    return JsonResponse(data)

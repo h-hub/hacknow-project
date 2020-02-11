@@ -75,13 +75,13 @@
         </nav>
     </header>
     <main role="main">
-        <div class="container">
+        {% comment %} <div class="container">
             <h1 class="jumbotron-heading">Developer Feeds</h1>
             <p class="lead text-muted">
                 Rss feed reader for the Software Developers.
             </p>
-        </div>
-        <div class="container content bg-white">
+        </div> {% endcomment %}
+        <div class="my-fluid-container  content bg-white">
             {% block content %}
             {% endblock %}
         </div>

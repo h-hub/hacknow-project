@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'home',
     "django_static_fontawesome",
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -110,6 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

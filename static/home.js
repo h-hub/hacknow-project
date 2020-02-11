@@ -1,11 +1,13 @@
 
 $(document).ready(function () {
 
+    var link = "";
+
     $('.modal').modal('handleUpdate')
 
     $('.modal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
-        var link = button.data('link')
+        link = button.data('link')
         var title = button.data('title')
         var modal = $(this)
         modal.find('iframe').attr('src', link)
@@ -25,4 +27,21 @@ $(document).ready(function () {
             alert('Please allow popups for this website');
         }
     });
+
+    $("#bookmark-btn").click(function () {
+        $.ajax({
+            url: '/ajax/bookmark',
+            data: {
+                'link': link
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.is_taken) {
+                    alert("A user with this username already exists.");
+                }
+            }
+        });
+
+    });
+
 });
