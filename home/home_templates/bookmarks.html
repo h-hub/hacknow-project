@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-4 col-sm-12  bookmarks">
+        <div class="card bookmark-card">
+            <div class="card-body bg-light">
+                {% for bookmark_link in links %}
+                <div class="card bookmark-card-link">
+                    <div class="card-body">
+                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="{{bookmark_link.link}}"
+                            role="tab" aria-controls="v-pills-profile" aria-selected="false">{{bookmark_link.link}}</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 col-sm-12  bookmarks-content border border-primary">
+        <iframe src="" width="100%" height="550px" frameborder="0" allowtransparency="true"></iframe>
+    </div>
+</div>
+
+{% endblock %}

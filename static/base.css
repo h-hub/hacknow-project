@@ -73,8 +73,64 @@ body {
 }
 
 .my-fluid-container {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.author-card {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.author-card-body {
+    padding: 10px;
+}
+
+.author-name-links {
+    margin-bottom: 5px;
+}
+
+.author-name-links div {
+    font-size: 0.9rem;
+    padding: 3px;
+}
+
+.author-name-links div:hover {
+    background-color: #e7e9ea;
+    cursor:pointer;
+  }
+
+.author-name {
+    font-size: 1rem;
+}
+
+.fa-twitter{
+    color: #1DA1F2
+}
+
+
+.bookmark-card {
+    overflow-y: scroll;
+    height: calc(100vh - 15rem);
+}
+
+.bookmark-content {
+    height: calc(100vh - 15rem);
+    min-height: 300px;
+}
+
+.bookmark-card-link {
+    margin-bottom: 5px;
+}
+
+.bookmark-card-link div {
+    font-size: 0.9rem;
+    padding: 6px;
+}
+
+.bookmark-card-link div:hover {
+    background-color: #e7e9ea;
+    cursor:pointer;
   }

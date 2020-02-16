@@ -88,8 +88,6 @@ WSGI_APPLICATION = 'devRssReader.wsgi.application'
 
 DATABASES = { 'default': dj_database_url.config(conn_max_age=500, ssl_require=True) }
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -112,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'users.User'
+# AUTH_USER_MODEL = 'User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

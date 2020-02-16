@@ -9,14 +9,15 @@ $(document).ready(function () {
         var button = $(event.relatedTarget) // Button that triggered the modal
         link = button.data('link')
         var title = button.data('title')
+        var content = button.data('content')
         var modal = $(this)
-        modal.find('iframe').attr('src', link)
+        modal.find('.modal-body').append(content);
         modal.find('#ModalLongTitle').text(title)
     })
 
     $('.modal').on('hide.bs.modal', function (event) {
         var modal = $(this)
-        modal.find('iframe').attr('src', '')
+        //modal.find('.modal-body').append
     })
 
     $('#newtab-btn').click(function () {
@@ -36,12 +37,16 @@ $(document).ready(function () {
             },
             dataType: 'json',
             success: function (data) {
-                if (data.is_taken) {
-                    alert("A user with this username already exists.");
+                if (data.is_saved) {
+                    alert("Saved");
                 }
             }
         });
 
     });
+
+    $('.author-name-links').click(function () {
+        $(this).addClass('border border-primary');
+    });  
 
 });
