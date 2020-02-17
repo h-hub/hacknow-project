@@ -6,7 +6,6 @@ $(document).ready(function () {
         $(this).addClass('border border-primary');
         var link = $(this).find('a').attr('href');
         $('.bookmarks-content').find('iframe').attr('src', link);
-        //$(this).tab('show')
     })
 
 });

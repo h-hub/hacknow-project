@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+{% load static %}
 <div class="row">
 
     {% for entry in authors %}
@@ -47,11 +47,12 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-outline-primary btn-sm" id="bookmark-btn"><i
-                                    class="fas fa-bookmark"></i> Bookmark</button>
+                        <div class="col-md-12 modal-title-menu">
+                           {% comment %} <button type="button" class="btn btn-outline-primary btn-sm" id="bookmark-btn"><i
+                                    class="fas fa-bookmark"></i> Bookmark</button> {% endcomment %}
                             <button type="button" class="btn btn-outline-secondary btn-sm" id="newtab-btn"><i
                                     class="far fa-window-maximize"></i> New Tab</button>
+                                    <img class="modal-title-menu-loading" src="{% static "loading.gif" %}">
                         </div>
                     </div>
                 </div>

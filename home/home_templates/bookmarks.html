@@ -7,10 +7,14 @@
         <div class="card bookmark-card">
             <div class="card-body bg-light">
                 {% for bookmark_link in links %}
-                <div class="card bookmark-card-link">
-                    <div class="card-body">
+                <div class="card">
+                    <div class="card-body  bookmark-card-link">
                         <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="{{bookmark_link.link}}"
                             role="tab" aria-controls="v-pills-profile" aria-selected="false">{{bookmark_link.link}}</a>
+                    </div>
+                    <div class="card-body bookmark-card-link-buttons">
+                        <button type="button" class="btn btn-outline-primary btn-sm" id="bookmark-btn"><i
+                                    class="fas fa-bookmark text-warning"></i> Bookmarked</button>
                     </div>
                 </div>
                 {% endfor %}
@@ -18,7 +22,7 @@
         </div>
     </div>
     <div class="col-md-8 col-sm-12  bookmarks-content border border-primary">
-        <iframe src="" width="100%" height="550px" frameborder="0" allowtransparency="true"></iframe>
+        <iframe src="{{first_link.link}}" width="100%" height="550px" frameborder="0" allowtransparency="true"></iframe>
     </div>
 </div>
 

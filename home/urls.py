@@ -7,6 +7,7 @@ urlpatterns = [
     path('about', views.about, name='about'),
     path('bookmark', views.bookmarks, name='bookmarks'),
     path('ajax/bookmark', views.bookmark_links, name='bookmark'),
+    path('ajax/is_bookmark', views.is_bookmark, name='bookmark'),
     # path('$/', views.authors, name='authors'),
     # path('$/', views.links, name='links'),
 ]

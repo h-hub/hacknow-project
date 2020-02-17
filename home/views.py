@@ -35,12 +35,14 @@ def index(request):
 def about(request):
     return render(request, 'home_templates/about.html')
 
+
 def bookmarks(request):
 
     bookmark_links = PostLink.objects.all()
 
     context = {
         'links': bookmark_links,
+        'first_link': bookmark_links[0]
     }
 
     return render(request, 'home_templates/bookmarks.html', context)
@@ -49,13 +51,34 @@ def bookmarks(request):
 def bookmark_links(request):
     link = request.GET.get('link', None)
 
-    post_link = PostLink()
-    post_link.link = link
-    post_link.author = request.user
-    post_link.save()
+    exist = PostLink.objects.filter(link=link, author=request.user).exists()
+
+    if exist:
+        PostLink.objects.filter(link=link, author=request.user).delete()
+        data = {
+            'is_saved': False
+        }
+    else:
+        post_link = PostLink()
+        post_link.link = link
+        post_link.author = request.user
+        post_link.save()
+
+        data = {
+            'is_saved': True
+        }
+
+    return JsonResponse(data)
+
+
+def is_bookmark(request):
+
+    link = request.GET.get('link', None)
+
+    exist = PostLink.objects.filter(link=link, author=request.user).exists()
 
     data = {
-        'is_saved': True
+        'is_bookmark': exist
     }
 
     return JsonResponse(data)
