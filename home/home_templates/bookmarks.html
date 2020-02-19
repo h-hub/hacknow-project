@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load static %}
 
 <div class="row">
+    {% if links %}
     <div class="col-md-4 col-sm-12  bookmarks">
         <div class="card bookmark-card">
             <div class="card-body bg-light">
@@ -13,17 +15,31 @@
                             role="tab" aria-controls="v-pills-profile" aria-selected="false">{{bookmark_link.link}}</a>
                     </div>
                     <div class="card-body bookmark-card-link-buttons">
-                        <button type="button" class="btn btn-outline-primary btn-sm" id="bookmark-btn"><i
-                                    class="fas fa-bookmark text-warning"></i> Bookmarked</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm bookmark-btn"
+                            data-post-link="{{bookmark_link.link}}"><i class="fas fa-bookmark text-warning"></i>
+                            Bookmarked</button>
+                        <img class="bookmark-link-loading" src="{% static "loading.gif" %}" hidden>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         </div>
     </div>
-    <div class="col-md-8 col-sm-12  bookmarks-content border border-primary">
+    <div class="col-md-8 col-sm-12  bookmarks-content border border-primary justify-content-center">
         <iframe src="{{first_link.link}}" width="100%" height="550px" frameborder="0" allowtransparency="true"></iframe>
     </div>
+
+    {% else %}
+    <div class="col-md-12 col-sm-12  no-bookmarks-content justify-content-center">
+        <img class="loading-dino" src="{% static "not_found.gif" %}">
+        <p class="p-3 text-center">No Bookmarks<p>
+    </div>
+    {% endif %}
+
 </div>
+
+
+
+
 
 {% endblock %}

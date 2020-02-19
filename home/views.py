@@ -40,10 +40,16 @@ def bookmarks(request):
 
     bookmark_links = PostLink.objects.all()
 
-    context = {
-        'links': bookmark_links,
-        'first_link': bookmark_links[0]
-    }
+    if bookmark_links:
+        context = {
+            'links': bookmark_links,
+            'first_link': bookmark_links[0]
+        }
+    else:
+        context = {
+            'links': bookmark_links,
+            'first_link': None
+        }
 
     return render(request, 'home_templates/bookmarks.html', context)
 

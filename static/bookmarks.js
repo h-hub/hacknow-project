@@ -8,5 +8,30 @@ $(document).ready(function () {
         $('.bookmarks-content').find('iframe').attr('src', link);
     })
 
+    $(".bookmarks").on("click", ".bookmark-btn", function () {
+
+        $('.bookmark-link-loading').removeAttr('hidden');
+        var bookmarkBtn = $(this);
+        bookmarkBtn.prop('disabled', true);
+        var link = bookmarkBtn.data('post-link');
+
+        $.ajax({
+            url: '/ajax/bookmark',
+            data: {
+                'link': link
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (!data.is_saved) {
+                    bookmarkBtn.text('Removed');
+                } else {
+                    bookmarkBtn.removeAttr('disabled');
+                    alert("Server not responding.");
+                }
+                $('.bookmark-link-loading').prop('hidden', true);
+            }
+        });
+    });
+
 });
 
