@@ -10,3 +10,7 @@ python manage.py migrate
 
 Generate requirments:
 pip3 freeze > requirements.txt
+
+
+python manage.py diffsettings --all
+python manage.py collectstatic --noinput
