@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -12,10 +13,14 @@ import feedparser
 def index(request):
 
     authors = Author.objects.all()
+    paginator = Paginator(authors, 2) 
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     authorlist = []
 
-    for author in authors:
+    for author in page_obj:
         link = author.link_set.filter(name='blog')
         fed = feedparser.parse(link[0].link)
 
@@ -28,6 +33,7 @@ def index(request):
 
     context = {
         'authors': authorlist,
+        'page_obj': page_obj,
     }
     return render(request, 'home_templates/home.html', context)
 

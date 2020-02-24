@@ -19,8 +19,9 @@
                     <div class="p-2"><a><i class="fas fa-window-restore"></i></a></div>
                 </div>
                 {% for postlink in entry.autherblogfeed.entries %}
-                <div class="card author-name-links" data-link="{{postlink.link}}" data-title="{{postlink.title}}" data-content="{{postlink.description}}"
-                    data-link-id="{{postlink.title}}" data-toggle="modal" data-target=".bd-example-modal-lg">
+                <div class="card author-name-links" data-link="{{postlink.link}}" data-title="{{postlink.title}}"
+                    data-content="{{postlink.description}}" data-link-id="{{postlink.title}}" data-toggle="modal"
+                    data-target=".bd-example-modal-lg">
                     <div class="card-body">
                         {{postlink.title}}
                     </div>
@@ -30,6 +31,27 @@
         </div>
     </div>
     {% endfor %}
+
+    <div class="col-md-12 d-flex justify-content-center">
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
 </div>
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -48,11 +70,11 @@
                             </button>
                         </div>
                         <div class="col-md-12 modal-title-menu">
-                           {% comment %} <button type="button" class="btn btn-outline-primary btn-sm" id="bookmark-btn"><i
-                                    class="fas fa-bookmark"></i> Bookmark</button> {% endcomment %}
+                            {% comment %} <button type="button" class="btn btn-outline-primary btn-sm"
+                                id="bookmark-btn"><i class="fas fa-bookmark"></i> Bookmark</button> {% endcomment %}
                             <button type="button" class="btn btn-outline-secondary btn-sm" id="newtab-btn"><i
                                     class="far fa-window-maximize"></i> New Tab</button>
-                                    <img class="modal-title-menu-loading" src="{% static "loading.gif" %}">
+                            <img class="modal-title-menu-loading" src="{% static "loading.gif" %}">
                         </div>
                     </div>
                 </div>
