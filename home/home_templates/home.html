@@ -2,56 +2,46 @@
 
 {% block content %}
 {% load static %}
-<div class="row">
 
+<div class="card-columns">
     {% for entry in authors %}
-    <div class="col-md-6 col-12 col-sm-12 col-lg-4 col-xl-3 py-3">
-        <div class="card author-card">
-            <div class="card-body author-card-body bg-light">
-
-
-                <div class="d-flex justify-content-between">
-                    <div class="mr-auto p-2">
-                        <h2 class="author-name">{{entry.authername}}</h2>
-                    </div>
-                    <div class="p-2"><a><i class="fab fa-twitter-square"></i></a></div>
-                    <div class="p-2"><a><i class="fab fa-github"></i></a></div>
-                    <div class="p-2"><a><i class="fas fa-window-restore"></i></a></div>
-                </div>
-                {% for postlink in entry.autherblogfeed.entries %}
-                <div class="card author-name-links" data-link="{{postlink.link}}" data-title="{{postlink.title}}"
-                    data-content="{{postlink.description}}" data-link-id="{{postlink.title}}" data-toggle="modal"
-                    data-target=".bd-example-modal-lg">
-                    <div class="card-body">
-                        {{postlink.title}}
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+    <div class="card">
+        <div class="card-header auther-name text-light d-flex justify-content-between">
+            <div class="mr-auto p-2">{{entry.authername}}</div>
+            <div class="p-2"><a><i class="fab fa-twitter-square"></i></a></div>
+            <div class="p-2"><a><i class="fab fa-github"></i></a></div>
+            <div class="p-2"><a><i class="fas fa-window-restore"></i></a></div>
         </div>
+        <ul class="list-group list-group-flush">
+            {% for postlink in entry.autherblogfeed.entries %}
+            <li class="list-group-item author-name-links" data-link="{{postlink.link}}" data-title="{{postlink.title}}"
+                data-content="{{postlink.description}}" data-link-id="{{postlink.title}}" data-toggle="modal"
+                data-target=".bd-example-modal-lg">{{postlink.title}}</li>
+            {% endfor %}
+        </ul>
     </div>
     {% endfor %}
 
-    <div class="col-md-12 d-flex justify-content-center">
-        <div class="pagination">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
+</div>
 
-                <span class="current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
+<div class="col-md-12 d-flex justify-content-center">
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
 
-                {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                {% endif %}
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
             </span>
-        </div>
-    </div>
 
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 </div>
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
