@@ -6,10 +6,10 @@
 <div class="row">
     {% if links %}
     <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 bookmarks">
-        <div class="card bookmark-card">
-            <div class="card-body bg-light">
+        <div class="card bookmark-card shadow">
+            <div class="card-body">
                 {% for bookmark_link in links %}
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-body  bookmark-card-link">
                         <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="{{bookmark_link.link}}"
                             role="tab" aria-controls="v-pills-profile" aria-selected="false">{{bookmark_link.link}}</a>
@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8 col-sm-12  col-lg-8 col-xl-8 bookmarks-content border border-primary justify-content-center">
+    <div class="col-md-8 col-sm-12  col-lg-8 col-xl-8 bookmarks-content shadow justify-content-center">
         <iframe src="{{first_link.link}}" width="100%" height="100%" frameborder="0" allowtransparency="true"></iframe>
     </div>
 

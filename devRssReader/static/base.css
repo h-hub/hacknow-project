@@ -129,10 +129,17 @@ body {
 .bookmark-card {
     overflow-y: scroll;
     height: calc(100vh - 15rem);
+    border-radius: 0;
+    border: 0;
 }
 
 .bookmark-card .card-body {
     padding: 5px;
+}
+
+.bookmark-card .card {
+    border-radius: 0;
+    border: 0;
 }
 
 .bookmark-card .card {
