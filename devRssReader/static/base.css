@@ -98,6 +98,15 @@ body {
     }
   }
 
+.auther-name-link {
+    color: white;
+}
+
+.auther-name-link:hover {
+    color: #06BEE1;
+    text-decoration: none;
+}
+
 .author-card-body {
     padding: 10px;
 }

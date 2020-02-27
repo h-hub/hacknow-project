@@ -21,12 +21,33 @@ def index(request):
     authorlist = []
 
     for author in page_obj:
-        link = author.link_set.filter(name='blog')
-        fed = feedparser.parse(link[0].link)
+
+        web_link = None
+        twitter_link = None
+        github_link = None
+
+        blog_feed_link = author.link_set.filter(name='blog')
+
+        web = author.link_set.filter(name='web')
+        if web:
+            web_link = author.link_set.filter(name='web')[0].link
+
+        twitter = author.link_set.filter(name='twitter')
+        if twitter:
+            twitter_link = author.link_set.filter(name='twitter')[0].link
+
+        github = author.link_set.filter(name='github')
+        if github:
+            github_link = author.link_set.filter(name='github')[0].link
+        
+        feed = feedparser.parse(blog_feed_link[0].link)
 
         linkobjects = {
             'authername': author.first_name + " " + author.last_name,
-            'autherblogfeed': fed
+            'autherblogfeed': feed,
+            'webLink': web_link,
+            'twitter': twitter_link,
+            'github': github_link
         }
 
         authorlist.append(linkobjects)
