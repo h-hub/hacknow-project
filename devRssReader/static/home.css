@@ -1,0 +1,48 @@
+
+.modal-content {
+    max-height: calc(100vh - 50px);
+    overflow-y: auto;
+}
+
+.card-columns {
+    @include media-breakpoint-only(lg) {
+      column-count: 4;
+    }
+    @include media-breakpoint-only(xl) {
+      column-count: 5;
+    }
+  }
+
+.auther-name-link {
+    color: white;
+}
+
+.auther-name-link:hover {
+    color: #06BEE1;
+    text-decoration: none;
+}
+
+.author-card-body {
+    padding: 10px;
+}
+
+.auther-name {
+    padding: 5px;
+    font-size: 1.3rem;
+    background-color: #1768AC;
+} 
+
+.author-name-links {
+    padding: 8px;
+}
+
+.author-name-links:hover {
+    background-color: #e7e9ea;
+    cursor: pointer;
+}
+
+
+.fa-twitter {
+    color: #1DA1F2
+}
+/* home end css */
