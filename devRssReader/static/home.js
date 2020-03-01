@@ -73,7 +73,7 @@ $(document).ready(function () {
     });
 
     $('.author-name-links').click(function () {
-        $(this).addClass('border border-primary');
+        $(this).addClass('clicked');
     });
 
 });

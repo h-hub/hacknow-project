@@ -38,10 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    'bootstrap4',
     'home',
     "django_static_fontawesome",
     'users',
+    'sass_processor',
 ]
 
 MIDDLEWARE = [
@@ -138,10 +138,19 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'devRssReader/static'),
 )
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder',
+]
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+SASS_PROCESSOR_AUTO_INCLUDE = False
+SASS_PROCESSOR_ROOT = STATIC_ROOT
 
 django_heroku.settings(locals())

@@ -5,7 +5,8 @@ body {
 }
 
 .bg-navbar {
-    background-color: #03256c;
+    /* background-color: #03256c; */
+    border-bottom: 8px solid #03256c;
 }
 
 .content {
@@ -15,20 +16,26 @@ body {
 }
 
 .my-fluid-container {
-    padding-left: 10px;
-    padding-right: 10px;
+    /* padding-left: 10px;
+    padding-right: 10px; */
     margin-left: auto;
     margin-right: auto;
 }
 
+@media screen and (min-width: 800px) {
+    .my-fluid-container {
+        max-width: 750px;
+    }
+}
+
 @media screen and (min-width: 1200px) {
-    .container {
-        max-width: 1200px;
+    .my-fluid-container {
+        max-width: 1150px;
     }
 }
 
 @media screen and (min-width: 1800px) {
-    .container {
-        max-width: 1800px;
+    .my-fluid-container {
+        max-width: 1700px;
     }
 }
