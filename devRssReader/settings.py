@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    'home',
+    'home.apps.HomeConfig',
     "django_static_fontawesome",
     'users',
     'sass_processor',
