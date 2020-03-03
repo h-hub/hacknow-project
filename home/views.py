@@ -5,7 +5,7 @@ from django.http import JsonResponse
 
 from home.models import Author
 from home.models import Link
-from users.models import PostLink
+# from users.models import PostLink
 
 import feedparser
 
@@ -52,10 +52,14 @@ def index(request):
 
         authorlist.append(linkobjects)
 
+    latestLinks = feedparser.parse("https://vladmihalcea.com/blog/feed/")
+
     context = {
         'authors': authorlist,
         'page_obj': page_obj,
+        'latestLinks': latestLinks,
     }
+
     return render(request, 'home_templates/home.html', context)
 
 
@@ -63,55 +67,55 @@ def about(request):
     return render(request, 'home_templates/about.html')
 
 
-def bookmarks(request):
+# def bookmarks(request):
 
-    bookmark_links = PostLink.objects.all()
+#     bookmark_links = PostLink.objects.all()
 
-    if bookmark_links:
-        context = {
-            'links': bookmark_links,
-            'first_link': bookmark_links[0]
-        }
-    else:
-        context = {
-            'links': bookmark_links,
-            'first_link': None
-        }
+#     if bookmark_links:
+#         context = {
+#             'links': bookmark_links,
+#             'first_link': bookmark_links[0]
+#         }
+#     else:
+#         context = {
+#             'links': bookmark_links,
+#             'first_link': None
+#         }
 
-    return render(request, 'home_templates/bookmarks.html', context)
-
-
-def bookmark_links(request):
-    link = request.GET.get('link', None)
-
-    exist = PostLink.objects.filter(link=link, author=request.user).exists()
-
-    if exist:
-        PostLink.objects.filter(link=link, author=request.user).delete()
-        data = {
-            'is_saved': False
-        }
-    else:
-        post_link = PostLink()
-        post_link.link = link
-        post_link.author = request.user
-        post_link.save()
-
-        data = {
-            'is_saved': True
-        }
-
-    return JsonResponse(data)
+#     return render(request, 'home_templates/bookmarks.html', context)
 
 
-def is_bookmark(request):
+# def bookmark_links(request):
+#     link = request.GET.get('link', None)
 
-    link = request.GET.get('link', None)
+#     exist = PostLink.objects.filter(link=link, author=request.user).exists()
 
-    exist = PostLink.objects.filter(link=link, author=request.user).exists()
+#     if exist:
+#         PostLink.objects.filter(link=link, author=request.user).delete()
+#         data = {
+#             'is_saved': False
+#         }
+#     else:
+#         post_link = PostLink()
+#         post_link.link = link
+#         post_link.author = request.user
+#         post_link.save()
 
-    data = {
-        'is_bookmark': exist
-    }
+#         data = {
+#             'is_saved': True
+#         }
 
-    return JsonResponse(data)
+#     return JsonResponse(data)
+
+
+# def is_bookmark(request):
+
+#     link = request.GET.get('link', None)
+
+#     exist = PostLink.objects.filter(link=link, author=request.user).exists()
+
+#     data = {
+#         'is_bookmark': exist
+#     }
+
+#     return JsonResponse(data)

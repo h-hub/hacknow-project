@@ -15,3 +15,20 @@ class Link(models.Model):
     def __str__(self):
            return self.author.first_name + " -> " + self.name + " : " + self.link
 
+class FeedLink(models.Model):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    intro = models.CharField(max_length=255)
+    img_url = models.CharField(max_length=100)
+
+    def __str__(self):
+           return self.title
+
+
+class Category(models.Model):
+    links = models.ManyToManyField(FeedLink)
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=255)
+
+    def __str__(self):
+           return self.name

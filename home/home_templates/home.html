@@ -3,6 +3,8 @@
 {% block content %}
 {% load static %}
 
+{% include 'latest-articles.html' with latestLinks=latestLinks %}
+
 <div class="card-columns">
     {% for entry in authors %}
     <div class="card shadow">
@@ -40,41 +42,6 @@
         </ul>
     </div>
 
-    <div class="card shadow">
-        <div class="card-header auther-name text-light d-flex justify-content-between">
-
-            {% if entry.webLink %}
-            <div class="mr-auto p-2"><a href="{{entry.webLink}}" rel="noopener noreferrer" class="auther-name-link"
-                    target="_blank">{{entry.authername}}</a></div>
-            {% else %}
-            <div class="mr-auto p-2">{{entry.authername}}</div>
-            {% endif %}
-
-            {% if entry.twitter %}
-            <div class="p-2"><a href="{{entry.twitter}}" class="badge badge-light" rel="noopener noreferrer"
-                    target="_blank"><i class="fab fa-twitter-square"></i></a></div>
-            {% endif %}
-
-            {% if entry.github %}
-            <div class="p-2"><a href="{{entry.github}}" class="badge badge-light" rel="noopener noreferrer"
-                    target="_blank"><i class="fab fa-github"></i></a></div>
-            {% endif %}
-
-            {% if entry.webLink %}
-            <div class="p-2"><a href="{{entry.webLink}}" class="badge badge-light" rel="noopener noreferrer"
-                    target="_blank"><i class="fas fa-window-restore"></i></a></div>
-            {% endif %}
-
-        </div>
-        <ul class="list-group list-group-flush">
-            {% for postlink in entry.autherblogfeed.entries %}
-            <li class="list-group-item author-name-links" data-link="{{postlink.link}}" data-title="{{postlink.title}}"
-                data-content="{{postlink.description}}" data-link-id="{{postlink.title}}" data-toggle="modal"
-                data-target=".bd-example-modal-lg">{{postlink.title}}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    
     {% endfor %}
 
 </div>
