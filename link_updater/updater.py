@@ -4,5 +4,5 @@ from link_updater import retrieve_links_api
 
 def start():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(retrieve_links_api.scheduled_job, 'interval', hour=12)
+    scheduler.add_job(retrieve_links_api.scheduled_job, 'interval', hours=12)    
     scheduler.start()
