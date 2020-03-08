@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 
 from home.models import Author
-from home.models import Link
+from home.models import Link, FeedLink
 # from users.models import PostLink
 
 import feedparser
@@ -13,20 +13,20 @@ import feedparser
 def index(request):
 
     authors = Author.objects.all()
-    paginator = Paginator(authors, 5) 
+    # paginator = Paginator(authors, 5) 
 
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    # page_number = request.GET.get('page')
+    # page_obj = paginator.get_page(page_number)
 
     authorlist = []
 
-    for author in page_obj:
+    for author in authors:
 
         web_link = None
         twitter_link = None
         github_link = None
 
-        blog_feed_link = author.link_set.filter(name='blog')
+        blog_feed_links = author.link_set.filter(name='blog')[0].feedlink_set.all()[:8]
 
         web = author.link_set.filter(name='web')
         if web:
@@ -40,11 +40,9 @@ def index(request):
         if github:
             github_link = author.link_set.filter(name='github')[0].link
         
-        feed = feedparser.parse(blog_feed_link[0].link)
-
         linkobjects = {
             'authername': author.first_name + " " + author.last_name,
-            'autherblogfeed': feed,
+            'autherblogfeed': blog_feed_links,
             'webLink': web_link,
             'twitter': twitter_link,
             'github': github_link
@@ -52,11 +50,10 @@ def index(request):
 
         authorlist.append(linkobjects)
 
-    latestLinks = feedparser.parse("https://vladmihalcea.com/blog/feed/")
+    latestLinks = FeedLink.objects.all()[:6]
 
     context = {
         'authors': authorlist,
-        'page_obj': page_obj,
         'latestLinks': latestLinks,
     }
 

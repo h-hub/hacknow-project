@@ -9,6 +9,10 @@ body {
     border-bottom: 8px solid #03256c;
 }
 
+.main-menu{
+    border-top: 5px solid #2541B2;
+}
+
 .content {
     padding-top: 1rem;
     padding-bottom: 1rem;

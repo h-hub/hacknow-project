@@ -50,5 +50,5 @@
     background-image: url("batman.jpg");
     background-size: cover;
     background-clip: border-box;
-    min-width: 200px;
+    min-width: 150px;
 }

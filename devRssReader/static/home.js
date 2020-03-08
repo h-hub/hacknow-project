@@ -15,7 +15,7 @@ $(document).ready(function () {
         var title = button.data('title')
         var content = button.data('content')
         var modal = $(this)
-        modal.find('.modal-body').append(content);
+        modal.find('iframe').attr('src',link)
         modal.find('#ModalLongTitle').text(title)
 
         $.ajax({

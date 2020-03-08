@@ -1,21 +1,49 @@
 {% load static %}
 
-<div class="row mb-2">
-    {% for postlink in latestLinks.entries %}
+<div class="row mb-2 border shadow rounded">
+
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12  m-2">
+        <strong class="d-inline-block text-dark">Latest Articles</strong>
+    </div>
+
+    {% for postlink in latestLinks %}
     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 latest-articles">
-        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col-8 p-4 d-flex flex-column position-static">
-                <strong class="d-inline-block mb-2 text-primary">World</strong>
-                <p class="mb-0">{{postlink.title}}</p>
-                <div class="mb-1 text-muted">Nov 12</div>
-                <p class="card-text mb-auto latest-articles-intro">This is a wider card with supporting
-                    additional content.</p>
-                <a href="#" class="stretched-link">Continue reading</a>
+        <div
+            class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+
+            <div class="col-8 p-3 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-muted">{{postlink.title}}</strong>
+                <div class="mb-1 text-muted">by {{postlink.link.author.first_name}} {{postlink.link.author.last_name}}
+                </div>
+                <div class="mb-1 text-muted">{{postlink.published}}</div>
+                <p class="card-text mb-auto latest-articles-intro">{{postlink.intro}}</p>
+
+                <a href="#" class="stretched-link" data-link="{{postlink.feed_link_url}}"
+                    data-title="{{postlink.title}}" data-toggle="modal" data-target=".bd-example-modal-lg">Continue
+                    reading</a>
+
             </div>
-            <div class="col-4 d-none d-lg-block">
-                <img src="{% static "batman.jpg" %}" height="100%">
+
+            <div class="col-4 d-none d-lg-block p-2">
+                <img src="{{postlink.img_url}}" class="img-fluid" alt="Responsive image">
             </div>
+
         </div>
     </div>
     {% endfor %}
+
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-right mb-2">
+        <a href="#">Read more . . .</a>
+    </div>
+
 </div>
+
+
+{% comment %} <div class="col-8 p-3 d-flex flex-column position-static">
+    <strong class="d-inline-block mb-2 text-primary">{{postlink.title}}</strong>
+    <p class="mb-0">{{postlink.title}}</p>
+    <div class="mb-1 text-muted">Nov 12</div>
+    <p class="card-text mb-auto latest-articles-intro">This is a wider card with supporting
+        additional content.</p>
+    <a href="#" class="stretched-link">Continue reading</a>
+</div> {% endcomment %}
