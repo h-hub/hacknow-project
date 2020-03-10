@@ -5,7 +5,7 @@ from django.http import JsonResponse
 
 from home.models import Author
 from home.models import Link, FeedLink
-# from users.models import PostLink
+from users.models import Profile
 
 import feedparser
 
@@ -82,37 +82,34 @@ def about(request):
 #     return render(request, 'home_templates/bookmarks.html', context)
 
 
-# def bookmark_links(request):
-#     link = request.GET.get('link', None)
+def add_bookmark(request):
+    link = request.GET.get('link', None)
 
-#     exist = PostLink.objects.filter(link=link, author=request.user).exists()
+    feed_link = FeedLink.objects.get(feed_link_url=link)
 
-#     if exist:
-#         PostLink.objects.filter(link=link, author=request.user).delete()
-#         data = {
-#             'is_saved': False
-#         }
-#     else:
-#         post_link = PostLink()
-#         post_link.link = link
-#         post_link.author = request.user
-#         post_link.save()
+    profile = Profile()
+    profile.user = request.user
+    profile.book_marks.add(feed_link)
+    profile.save()
 
-#         data = {
-#             'is_saved': True
-#         }
+    data = {
+            'is_saved': True
+        }
 
-#     return JsonResponse(data)
+    return JsonResponse(data)
 
 
-# def is_bookmark(request):
+def is_bookmark(request):
 
-#     link = request.GET.get('link', None)
+    link = request.GET.get('link', None)
 
-#     exist = PostLink.objects.filter(link=link, author=request.user).exists()
+    feed_link = FeedLink.objects.get(feed_link_url=link)
 
-#     data = {
-#         'is_bookmark': exist
-#     }
+    exist = False
+    # PostLink.objects.filter(link=link, author=request.user).exists()
 
-#     return JsonResponse(data)
+    data = {
+        'is_bookmark': exist
+    }
+
+    return JsonResponse(data)

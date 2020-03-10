@@ -71,6 +71,9 @@
                     {% endif %}
                 </ul>
                 <form class="form-inline my-2 my-lg-0 bg-light">
+                    {% if request.user.is_authenticated %}
+                    <span class="ml-2 mr-2 font-weight-bold">Hi {{ request.user.get_username }}</span>
+                    {% endif %}
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
                 </form>
@@ -82,12 +85,6 @@
 
     </header>
     <main role="main">
-        {% comment %} <div class="container">
-            <h1 class="jumbotron-heading">Developer Feeds</h1>
-            <p class="lead text-muted">
-                Rss feed reader for the Software Developers.
-            </p>
-        </div> {% endcomment %}
         <div class="my-fluid-container content bg-transparent">
             {% block content %}
             {% endblock %}

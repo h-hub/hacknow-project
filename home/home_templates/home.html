@@ -42,9 +42,9 @@
         <ul class="list-group list-group-flush">
             {% for postlink in entry.autherblogfeed %}
             <li class="list-group-item author-name-links" data-link="{{postlink.feed_link_url}}" data-title="{{postlink.title}}"
-                data-content="{{postlink.description}}" data-link-id="{{postlink.title}}" data-toggle="modal"
-                data-target=".bd-example-modal-lg">{{postlink.title}}</li>
+                data-toggle="modal" data-target=".bd-example-modal-lg">{{postlink.title}}</li>
             {% endfor %}
+            <li class="list-group-item author-name-links"><a href="">Read more . . .</a></li>
         </ul>
     </div>
 

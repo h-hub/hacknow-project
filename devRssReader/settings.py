@@ -154,4 +154,9 @@ LOGOUT_REDIRECT_URL = '/'
 SASS_PROCESSOR_AUTO_INCLUDE = False
 SASS_PROCESSOR_ROOT = STATIC_ROOT
 
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = 'D:/tmp'
+
 django_heroku.settings(locals())
