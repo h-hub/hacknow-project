@@ -18,12 +18,11 @@ class Link(models.Model):
 
 class FeedLink(models.Model):
     link = models.ForeignKey(Link, on_delete=models.CASCADE)
-    feed_link_url = models.CharField(max_length=255, primary_key=True)
+    feed_link_url = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
     intro = models.CharField(max_length=255)
     img_url = models.CharField(max_length=255)
     published = models.DateField(default=date.today)
-
 
     def __str__(self):
            return self.title

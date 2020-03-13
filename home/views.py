@@ -13,6 +13,7 @@ import feedparser
 def index(request):
 
     authors = Author.objects.all()
+
     # paginator = Paginator(authors, 5) 
 
     # page_number = request.GET.get('page')
@@ -64,22 +65,22 @@ def about(request):
     return render(request, 'home_templates/about.html')
 
 
-# def bookmarks(request):
+def bookmarks(request):
 
-#     bookmark_links = PostLink.objects.all()
+    bookmark_links = request.user.profile.book_marks.all()
 
-#     if bookmark_links:
-#         context = {
-#             'links': bookmark_links,
-#             'first_link': bookmark_links[0]
-#         }
-#     else:
-#         context = {
-#             'links': bookmark_links,
-#             'first_link': None
-#         }
+    if bookmark_links:
+        context = {
+            'links': bookmark_links,
+            'first_link': bookmark_links[0]
+        }
+    else:
+        context = {
+            'links': bookmark_links,
+            'first_link': None
+        }
 
-#     return render(request, 'home_templates/bookmarks.html', context)
+    return render(request, 'home_templates/bookmarks.html', context)
 
 
 def add_bookmark(request):
@@ -87,10 +88,8 @@ def add_bookmark(request):
 
     feed_link = FeedLink.objects.get(feed_link_url=link)
 
-    profile = Profile()
-    profile.user = request.user
-    profile.book_marks.add(feed_link)
-    profile.save()
+    request.user.profile.book_marks.add(feed_link)
+    request.user.save()
 
     data = {
             'is_saved': True
@@ -103,13 +102,18 @@ def is_bookmark(request):
 
     link = request.GET.get('link', None)
 
-    feed_link = FeedLink.objects.get(feed_link_url=link)
-
     exist = False
-    # PostLink.objects.filter(link=link, author=request.user).exists()
+
+    feed_link = FeedLink.objects.filter(feed_link_url=link)
+
+
+    if feed_link[0] in request.user.profile.book_marks.all():
+        exist = True
 
     data = {
         'is_bookmark': exist
     }
 
     return JsonResponse(data)
+
+

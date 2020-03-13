@@ -12,6 +12,9 @@ class Profile(models.Model):
     book_marks = models.ManyToManyField(FeedLink)
     email_confirmed = models.BooleanField(default=False)
 
+    def __str__(self):
+           return self.user.email
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

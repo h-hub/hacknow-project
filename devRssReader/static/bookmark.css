@@ -1,5 +1,8 @@
+.bookmarks {
+    padding: 0;
+}
 .bookmark-card {
-    overflow-y: scroll;
+    overflow-y: auto;
     height: calc(100vh - 15rem);
     border-radius: 0;
     border: 0;
