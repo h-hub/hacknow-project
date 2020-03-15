@@ -12,7 +12,8 @@
             class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
 
             <div class="col-8 p-3 d-flex flex-column position-static">
-                <strong class="d-inline-block mb-2 text-muted">{{postlink.title}}</strong>
+                <strong class="d-inline-block mb-2 text-muted"><i class="fas fa-bookmark bookmark-icon" data-link="{{postlink.feed_link_url}}"></i>
+                    {{postlink.title}}</strong>
                 <div class="mb-1 text-muted">by {{postlink.link.author.first_name}} {{postlink.link.author.last_name}}
                 </div>
                 <div class="mb-1 text-muted">{{postlink.published}}</div>
@@ -37,13 +38,3 @@
     </div>
 
 </div>
-
-
-{% comment %} <div class="col-8 p-3 d-flex flex-column position-static">
-    <strong class="d-inline-block mb-2 text-primary">{{postlink.title}}</strong>
-    <p class="mb-0">{{postlink.title}}</p>
-    <div class="mb-1 text-muted">Nov 12</div>
-    <p class="card-text mb-auto latest-articles-intro">This is a wider card with supporting
-        additional content.</p>
-    <a href="#" class="stretched-link">Continue reading</a>
-</div> {% endcomment %}

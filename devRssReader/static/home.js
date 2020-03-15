@@ -8,14 +8,14 @@ $(document).ready(function () {
     $('.modal').on('show.bs.modal', function (event) {
 
         $('.modal-title-menu-loading').show();
-        $('.modal-title-menu').find('#bookmark-btn').remove();
+        $('.modal-title-menu').find('.bookmark-btn').remove();
 
         var button = $(event.relatedTarget) // Button that triggered the modal
         link = button.data('link')
         var title = button.data('title')
         var content = button.data('content')
         var modal = $(this)
-        modal.find('iframe').attr('src',link)
+        modal.find('iframe').attr('src', link)
         modal.find('#ModalLongTitle').text(title)
 
         $.ajax({
@@ -26,20 +26,14 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (!data.is_bookmark) {
-                    $('.modal-title-menu').append("<button type='button' class='btn btn-outline-primary btn-sm' id='bookmark-btn'><i class='far fa-bookmark'></i> Bookmark</button>");
+                    $('.modal-title-menu').append("<button type='button' class='btn btn-outline-primary btn-sm bookmark-btn id='add-bookmark-btn'><i class='far fa-bookmark'></i> Bookmark</button>");
 
-                    //alert("True");
                 } else {
-                    $('.modal-title-menu').append("<button type='button' class='btn btn-outline-primary btn-sm' id='bookmark-btn'><i class='fas fa-bookmark text-warning'></i> Bookmarked</button>");
+                    $('.modal-title-menu').append("<button type='button' class='btn btn-outline-primary btn-sm bookmark-btn' id='remove-bookmark-btn'><i class='fas fa-bookmark text-warning'></i> Bookmarked</button>");
                 }
                 $('.modal-title-menu-loading').hide();
             }
         });
-    })
-
-    $('.modal').on('hide.bs.modal', function (event) {
-        var modal = $(this)
-        //modal.find('.modal-body').append
     })
 
     $('#newtab-btn').click(function () {
@@ -51,21 +45,42 @@ $(document).ready(function () {
         }
     });
 
-    $(".modal-title-menu").on("click", "#bookmark-btn", function () {
+    $(".modal-title-menu").on("click", "#add-bookmark-btn", function () {
         $('.modal-title-menu-loading').show();
-        $('.modal-title-menu').find('#bookmark-btn').remove();
+        $('.modal-title-menu').find('.bookmark-btn').remove();
 
         $.ajax({
-            url: '/ajax/bookmark',
+            url: '/ajax/add_bookmark',
             data: {
                 'link': link
             },
             dataType: 'json',
             success: function (data) {
-                if (!data.is_saved) {
-                    $('.modal-title-menu').append("<button type='button' class='btn btn-outline-primary btn-sm' id='bookmark-btn'><i class='far fa-bookmark'></i> Bookmark</button>");
+                if (data.is_saved) {
+                    $('.modal-title-menu').append("<button type='button' class='btn btn-outline-primary btn-sm bookmark-btn' id='remove-bookmark-btn'><i class='fas fa-bookmark text-warning'></i> Bookmarked</button>");
                 } else {
-                    $('.modal-title-menu').append("<button type='button' class='btn btn-outline-primary btn-sm' id='bookmark-btn'><i class='fas fa-bookmark text-warning'></i> Bookmarked</button>");
+                    $('.modal-title-menu').append("<button type='button' class='btn btn-outline-primary btn-sm bookmark-btn' id='add-bookmark-btn'><i class='far fa-bookmark'></i> Bookmark</button>");
+                }
+                $('.modal-title-menu-loading').hide();
+            }
+        });
+    });
+
+    $(".modal-title-menu").on("click", "#remove-bookmark-btn", function () {
+        $('.modal-title-menu-loading').show();
+        $('.modal-title-menu').find('.bookmark-btn').remove();
+
+        $.ajax({
+            url: '/ajax/remove_bookmark',
+            data: {
+                'link': link
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.is_saved) {
+                    $('.modal-title-menu').append("<button type='button' class='btn btn-outline-primary btn-sm bookmark-btn' id='add-bookmark-btn'><i class='far fa-bookmark'></i> Bookmark</button>");
+                } else {
+                    $('.modal-title-menu').append("<button type='button' class='btn btn-outline-primary btn-sm bookmark-btn' id='remove-bookmark-btn'><i class='fas fa-bookmark text-warning'></i> Bookmarked</button>");
                 }
                 $('.modal-title-menu-loading').hide();
             }
@@ -73,7 +88,29 @@ $(document).ready(function () {
     });
 
     $('.author-name-links').click(function () {
-        $(this).addClass('clicked');
+        $(this).css("border-left", "5px solid #06BEE1");
+        $(this).css("border-right", "5px solid #06BEE1");
     });
+
+    $('.bookmark-icon').each(function (i, obj) {
+        var bookmarkIcon = $(this);
+        var feedLink = bookmarkIcon.data('link');
+        console.log(feedLink);
+
+        $.ajax({
+            url: '/ajax/is_bookmark',
+            data: {
+                'link': feedLink
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.is_bookmark) {
+                    bookmarkIcon.addClass("text-warning");
+                }
+            }
+        });
+
+    });
+
 
 });
