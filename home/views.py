@@ -97,6 +97,20 @@ def add_bookmark(request):
 
     return JsonResponse(data)
 
+def remove_bookmark(request):
+    link = request.GET.get('link', None)
+
+    feed_link = FeedLink.objects.get(feed_link_url=link)
+
+    request.user.profile.book_marks.remove(feed_link)
+    request.user.save()
+
+    data = {
+            'is_saved': True
+        }
+
+    return JsonResponse(data)
+
 
 def is_bookmark(request):
 

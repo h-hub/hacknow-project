@@ -1,3 +1,6 @@
+#sidebar.active {
+    margin-left: -250px;
+}
 .bookmarks {
     padding: 0;
 }
@@ -35,10 +38,16 @@
 .bookmark-card-link {
     font-size: 0.9rem;
     padding: 3px;
+    border-left: 2px solid #2541B2;
 }
 
 .bookmark-card-link a {
     padding: 4px;
+    color: rgba(0,0,0,.5);
+}
+
+.clicked {
+    background-color: #dae0e5;
 }
 
 .bookmark-card-link-buttons {
@@ -63,4 +72,8 @@
     margin-left: auto;
     margin-right: auto;
     width: 20%;
+}
+
+.remove-bookmark-btn {    
+    color: #1768AC;
 }

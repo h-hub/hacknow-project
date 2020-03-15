@@ -1,37 +1,53 @@
 $(document).ready(function () {
 
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+
+
     $('.bookmark-card-link').on('click', function (e) {
         e.preventDefault()
-        $(".bookmark-card-link").removeClass("border border-primary")
-        $(this).addClass('border border-primary');
+        $(".bookmark-card-link").removeClass("clicked")
+        $(this).addClass('clicked');
         var link = $(this).find('a').attr('href');
         $('.bookmarks-content').find('iframe').attr('src', link);
     })
 
-    $(".bookmarks").on("click", ".bookmark-btn", function () {
+    var bookmarkLink = "";
+    var bookmarkLinkCard = "";
 
-        $('.bookmark-link-loading').removeAttr('hidden');
+    $(".bookmarks").on("click", ".remove-bookmark-btn", function () {
+
+        $('#delete-confirm-modal').modal('show');
         var bookmarkBtn = $(this);
-        bookmarkBtn.prop('disabled', true);
-        var link = bookmarkBtn.data('post-link');
+        bookmarkLinkCard = bookmarkBtn.parent().parent();
+        bookmarkLink = bookmarkBtn.data('post-link');
+        
+    });
+
+    $("#confirm-delete-btn").on("click", function () { 
+
+        $('#delete-confirm-modal').modal('hide');
+        $('.bookmark-link-loading').prop('hidden', false);
 
         $.ajax({
-            url: '/ajax/bookmark',
+            url: '/ajax/remove_bookmark',
             data: {
-                'link': link
+                'link': bookmarkLink
             },
             dataType: 'json',
             success: function (data) {
-                if (!data.is_saved) {
-                    bookmarkBtn.text('Removed');
+                if (data.is_saved) {
+                    bookmarkLinkCard.remove();
                 } else {
-                    bookmarkBtn.removeAttr('disabled');
                     alert("Server not responding.");
                 }
                 $('.bookmark-link-loading').prop('hidden', true);
             }
         });
+
     });
 
-});
 
+
+});
