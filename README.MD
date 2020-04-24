@@ -1,4 +1,4 @@
-# Python Django
+# Hacknow: Python Django
 
 ## Deployed to Heorku
 Install Dependencies: pip3 install -r requirements.txt
