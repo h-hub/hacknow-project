@@ -26,7 +26,7 @@ body {
     margin-right: auto;
 }
 
-@media screen and (min-width: 800px) {
+/* @media screen and (min-width: 800px) {
     .my-fluid-container {
         max-width: 750px;
     }
@@ -42,4 +42,4 @@ body {
     .my-fluid-container {
         max-width: 1700px;
     }
-}
+} */

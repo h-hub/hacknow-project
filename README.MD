@@ -17,3 +17,6 @@ python manage.py diffsettings --all
 python manage.py collectstatic --noinput
 
 Logs: heroku logs -t  --app devrssfeed
+
+
+https://github.com/jessamynsmith/django-google-maps

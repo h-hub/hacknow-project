@@ -37,11 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
     'social_django',
     'home.apps.HomeConfig',
     "django_static_fontawesome",
     'users',
     'sass_processor',
+    'django_google_maps',
+    'rest_framework',
+    'rest_framework_gis',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +60,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-ROOT_URLCONF = 'devRssReader.urls'
+ROOT_URLCONF = 'covidmap.urls'
 
 TEMPLATES = [
     {
@@ -81,15 +85,14 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'devRssReader.wsgi.application'
+WSGI_APPLICATION = 'covidmap.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 # DATABASE_URL=$(heroku config:get DATABASE_URL -a devrssfeed) postgresql-animated-74623
-
-DATABASES = { 'default': dj_database_url.config(conn_max_age=500, ssl_require=True) }
-
+# DATABASES = { 'default': dj_database_url.config(conn_max_age=500, ssl_require=True) }
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -137,7 +140,7 @@ STATIC_URL = "/static/"
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'devRssReader/static'),
+    os.path.join(BASE_DIR, 'covidmap/static'),
 )
 
 STATICFILES_FINDERS = [
@@ -159,5 +162,33 @@ EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'D:/tmp'
+
+GOOGLE_MAPS_API_KEY = 'yourkey'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
+import os
+if os.name == 'nt':
+    import platform
+    OSGEO4W = r"C:\OSGeo4W"
+    if '64' in platform.architecture()[0]:
+        OSGEO4W += "64"
+    assert os.path.isdir(OSGEO4W), "Directory does not exist: " + OSGEO4W
+    os.environ['OSGEO4W_ROOT'] = OSGEO4W
+    os.environ['GDAL_DATA'] = OSGEO4W + r"\share\epsg_csv"
+    os.environ['PROJ_LIB'] = OSGEO4W + r"\share\proj"
+    os.environ['PATH'] = OSGEO4W + r"\bin;" + os.environ['PATH']
+
+# GEOS_LIBRARY_PATH=r'C:/OSGeo4W64/bin'
+# GDAL_LIBRARY_PATH=r'C:/OSGeo4W64/bin/gdal204.dll'
+# if 'GEOS_LIBRARY_PATH' in os.environ:
+#     GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH')
+#     GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH')
 
 django_heroku.settings(locals())

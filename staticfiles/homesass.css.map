@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "homesass.css",
+	"sources": [
+		"homesass.scss",
+		"bootstrap4/scss/_functions.scss",
+		"bootstrap4/scss/_variables.scss",
+		"bootstrap4/scss/mixins/_breakpoints.scss"
+	],
+	"names": [],
+	"mappings": "AGyEI,MAAM,sBHrEV;EAAA,AAAA,aAAa,CAAC;IAEN,YAAY,EAAE,CAAC,GAkBtB,EAAA;;AGsFG,MAAM,6CH1GV;EAAA,AAAA,aAAa,CAAC;IAMN,YAAY,EAAE,CAAC,GActB,EAAA;;AGsFG,MAAM,6CH1GV;EAAA,AAAA,aAAa,CAAC;IAUN,YAAY,EAAE,CAAC,GAUtB,EAAA;;AGsFG,MAAM,8CH1GV;EAAA,AAAA,aAAa,CAAC;IAcN,YAAY,EAAE,CAAC,GAMtB,EAAA;;AGoCG,MAAM,oBHxDV;EAAA,AAAA,aAAa,CAAC;IAkBN,YAAY,EAAE,CAAC,GAEtB,EAAA"
+}

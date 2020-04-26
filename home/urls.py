@@ -1,14 +1,15 @@
 from django.urls import path, include
+from rest_framework.urlpatterns import format_suffix_patterns
 
 from . import views
 
 urlpatterns = [
     path('', views.index, name='home'),
     path('about', views.about, name='about'),
-    path('bookmark', views.bookmarks, name='bookmarks'),
-    path('ajax/add_bookmark', views.add_bookmark, name='bookmark'),
-    path('ajax/remove_bookmark', views.remove_bookmark, name='remove_bookmark'),
-    path('ajax/is_bookmark', views.is_bookmark, name='bookmark'),
+    path('location', views.LocationView.as_view()),
+    path('location/<int:pk>', views.location_detail),
     # path('$/', views.authors, name='authors'),
     # path('$/', views.links, name='links'),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

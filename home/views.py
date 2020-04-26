@@ -3,55 +3,76 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 
-from home.models import Author
+from home.models import Author, Rental, Location
 from home.models import Link, FeedLink
 from users.models import Profile
 
-import feedparser
+from rest_framework import routers, viewsets, permissions, status, permissions
+from rest_framework.views import APIView
+from rest_framework_gis import serializers
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
 
+
+class LocationSerializer(serializers.GeoFeatureModelSerializer):
+    """ A class to serialize locations as GeoJSON compatible data """
+
+    class Meta:
+        model = Location
+        geo_field = "point"
+
+        # you can also explicitly declare which fields you want to include
+        # as with a ModelSerializer.
+        fields = ('id', 'name', 'address', 'cases', 'info')
+        
+
+class LocationView(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request, *args, **kwargs):
+        search_results = Location.objects.all()
+        serializer = LocationSerializer(search_results, many=True)
+        return JsonResponse(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = LocationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes((permissions.AllowAny,))
+def location_detail(request, pk):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        location = Location.objects.get(pk=pk)
+    except Location.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = LocationSerializer(location)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+            serializer = LocationSerializer(location, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse(serializer.data)
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+            location.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
 def index(request):
 
-    authors = Author.objects.all()
-
-    authorlist = []
-
-    for author in authors:
-
-        web_link = None
-        twitter_link = None
-        github_link = None
-
-        blog_feed_links = author.link_set.filter(name='blog')[0].feedlink_set.all()[:8]
-
-        web = author.link_set.filter(name='web')
-        if web:
-            web_link = author.link_set.filter(name='web')[0].link
-
-        twitter = author.link_set.filter(name='twitter')
-        if twitter:
-            twitter_link = author.link_set.filter(name='twitter')[0].link
-
-        github = author.link_set.filter(name='github')
-        if github:
-            github_link = author.link_set.filter(name='github')[0].link
-        
-        linkobjects = {
-            'authername': author.first_name + " " + author.last_name,
-            'autherblogfeed': blog_feed_links,
-            'webLink': web_link,
-            'twitter': twitter_link,
-            'github': github_link
-        }
-
-        authorlist.append(linkobjects)
-
-    latestLinks = FeedLink.objects.all()[:6]
-
-    context = {
-        'authors': authorlist,
-        'latestLinks': latestLinks,
-    }
+    context = {}
 
     return render(request, 'home_templates/home.html', context)
 
@@ -59,70 +80,5 @@ def index(request):
 def about(request):
     return render(request, 'home_templates/about.html')
 
-
-def bookmarks(request):
-
-    bookmark_links = request.user.profile.book_marks.all()
-
-    if bookmark_links:
-        context = {
-            'links': bookmark_links,
-            'first_link': bookmark_links[0]
-        }
-    else:
-        context = {
-            'links': bookmark_links,
-            'first_link': None
-        }
-
-    return render(request, 'home_templates/bookmarks.html', context)
-
-
-def add_bookmark(request):
-    link = request.GET.get('link', None)
-
-    feed_link = FeedLink.objects.get(feed_link_url=link)
-
-    request.user.profile.book_marks.add(feed_link)
-    request.user.save()
-
-    data = {
-            'is_saved': True
-        }
-
-    return JsonResponse(data)
-
-def remove_bookmark(request):
-    link = request.GET.get('link', None)
-
-    feed_link = FeedLink.objects.get(feed_link_url=link)
-
-    request.user.profile.book_marks.remove(feed_link)
-    request.user.save()
-
-    data = {
-            'is_saved': True
-        }
-
-    return JsonResponse(data)
-
-
-def is_bookmark(request):
-
-    link = request.GET.get('link', None)
-
-    exist = False
-
-    feed_link = FeedLink.objects.filter(feed_link_url=link)
-
-
-    if feed_link[0] in request.user.profile.book_marks.all():
-        exist = True
-
-    data = {
-        'is_bookmark': exist
-    }
-
-    return JsonResponse(data)
 
 
